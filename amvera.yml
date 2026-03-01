@@ -1,12 +1,11 @@
 meta:
-  environment: csharp
+  environment: docker
   toolchain:
-    name: dotnet
-    version: 8.0
+    name: docker
+    version: latest
 build:
-  image: mcr.microsoft.com/dotnet/sdk:8.0
+  dockerfile: Dockerfile
+  skip: false
 run:
-  image: mcr.microsoft.com/dotnet/sdk:8.0
-  buildFileName: bin/RabotaGovnoClone
   persistenceMount: /data
   containerPort: 5090
