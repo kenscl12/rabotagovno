@@ -4,7 +4,7 @@ meta:
     name: docker
     version: latest
 build:
-  dockerfile: Docker/Dockerfile
+  dockerfile: /amvera-kenscl12-run-reviewssite/Docker/Dockerfile
   skip: false
 run:
   containerPort: 5090
