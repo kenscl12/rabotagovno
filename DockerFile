@@ -11,4 +11,4 @@ WORKDIR /app
 COPY --from=build /app/RabotaGovnoClone ./
 ENV ASPNETCORE_URLS=http://+:5090
 EXPOSE 5090
-ENTRYPOINT ["dotnet", "RabotaGovnoClone.dll"]
+ENTRYPOINT ["dotnet", "RabotaGovnoClone.dll"] 
