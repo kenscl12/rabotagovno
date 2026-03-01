@@ -19,6 +19,7 @@ public sealed class ReviewRepository
     public IReadOnlyList<Review> GetLatest(int take = 20)
         => _db.Reviews
             .AsNoTracking()
+            .AsEnumerable() // сортировка по DateTimeOffset на клиенте, чтобы обойти ограничение SQLite
             .OrderByDescending(r => r.CreatedAt)
             .Take(take)
             .ToList();
@@ -26,6 +27,7 @@ public sealed class ReviewRepository
     public IReadOnlyList<Review> GetBest(int take = 20)
         => _db.Reviews
             .AsNoTracking()
+            .AsEnumerable() // сортировка по DateTimeOffset на клиенте
             .OrderByDescending(r => r.Score)
             .ThenByDescending(r => r.CreatedAt)
             .Take(take)
