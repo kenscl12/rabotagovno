@@ -5,11 +5,8 @@ meta:
     version: 8.0
 build:
   image: mcr.microsoft.com/dotnet/sdk:8.0
-  script:
-    - dotnet restore
-    - dotnet publish -c Release -o ./publish
 run:
   image: mcr.microsoft.com/dotnet/sdk:8.0
-  buildFileName: publish/RabotaGovnoClone
+  buildFileName: bin/RabotaGovnoClone
   persistenceMount: /data
   containerPort: 5090
