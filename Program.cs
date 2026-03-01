@@ -14,6 +14,24 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 
 var app = builder.Build();
 
+// ПРИМЕНЕНИЕ МИГРАЦИЙ ПРИ ЗАПУСКЕ
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    try
+    {
+        // Применяет все ожидающие миграции к базе данных
+        dbContext.Database.Migrate();
+        Console.WriteLine("Миграции успешно применены");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Ошибка при применении миграций: {ex.Message}");
+        // Логируйте ошибку, но не останавливайте приложение
+        // или остановите, если база данных критична
+    }
+}
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);

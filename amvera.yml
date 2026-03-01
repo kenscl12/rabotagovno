@@ -4,7 +4,7 @@ meta:
     name: docker
     version: latest
 build:
-  dockerfile: /blob/main/Docker/DockerFile
+  dockerfile: /Docker/DockerFile
   skip: false
 run:
   containerPort: 5090
