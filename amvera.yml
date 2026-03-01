@@ -1,3 +1,8 @@
+meta:
+  environment: docker
+  toolchain:
+    name: docker
+    version: latest
 build:
   skip: false
 run:
