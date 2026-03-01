@@ -1,0 +1,64 @@
+@page "/add"
+@inject ReviewRepository Repo
+
+<h1>Добавить отзыв</h1>
+<p class="muted">Форма сохраняет отзывы в базе данных (SQLite, файл <code>app.db</code>).</p>
+
+@code {
+    private Review model = new();
+    private string? error;
+    private int? createdId;
+
+    private void Submit()
+    {
+        error = null;
+        createdId = null;
+
+        if (string.IsNullOrWhiteSpace(model.Company) || string.IsNullOrWhiteSpace(model.Text))
+        {
+            error = "Заполните компанию и текст отзыва.";
+            return;
+        }
+
+        model.Author = string.IsNullOrWhiteSpace(model.Author) ? "Аноним" : model.Author.Trim();
+        model.Category = string.IsNullOrWhiteSpace(model.Category) ? "Прочее" : model.Category.Trim();
+        model.City = string.IsNullOrWhiteSpace(model.City) ? "" : model.City.Trim();
+        model.Score = model.Score;
+        model.CreatedAt = DateTimeOffset.Now;
+
+        var created = Repo.AddReview(model);
+        createdId = created.Id;
+        model = new();
+    }
+}
+
+@if (!string.IsNullOrWhiteSpace(error))
+{
+    <div class="alert error">@error</div>
+}
+@if (createdId is not null)
+{
+    <div class="alert ok">Отзыв добавлен: <a href="/main/view/all/@createdId">открыть</a></div>
+}
+
+<div class="form">
+    <label>Компания:</label>
+    <InputText class="input" @bind-Value="model.Company" />
+
+    <label>Автор:</label>
+    <InputText class="input" @bind-Value="model.Author" />
+
+    <label>Категория:</label>
+    <InputText class="input" @bind-Value="model.Category" />
+
+    <label>Город:</label>
+    <InputText class="input" @bind-Value="model.City" />
+
+    <label>Рейтинг (может быть отрицательным):</label>
+    <InputNumber class="input" @bind-Value="model.Score" />
+
+    <label>Текст:</label>
+    <InputTextArea class="input" @bind-Value="model.Text" rows="6" />
+
+    <button class="btn" @onclick="Submit">Опубликовать</button>
+</div>

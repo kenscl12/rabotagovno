@@ -1,0 +1,45 @@
+## Build artifacts
+bin/
+obj/
+
+## Rider / VS / VSCode
+.idea/
+.vs/
+.vscode/
+
+## User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+## Logs / temp
+*.log
+*.tmp
+*.temp
+
+## .NET
+*.pidb
+*.svclog
+*.userprefs
+
+## NuGet
+*.nupkg
+*.snupkg
+packages/
+
+## SQLite / local DB files
+app.db
+*.db
+*.db-shm
+*.db-wal
+
+## Publish output
+publish/
+
+## OS junk
+.DS_Store
+Thumbs.db
+
+## Cursor / IDE metadata
+.cursor/

@@ -1,0 +1,103 @@
+@page "/main/view/all/{Id:int}"
+@inject ReviewRepository Repo
+
+@code {
+    [Parameter] public int Id { get; set; }
+
+    private Review? review;
+    private string name = "";
+    private string comment = "";
+    private string? error;
+    private bool ok;
+
+    protected override void OnParametersSet()
+    {
+        review = Repo.GetById(Id);
+    }
+
+    private void AddComment()
+    {
+        ok = false;
+        error = null;
+
+        if (review is null)
+        {
+            error = "Отзыв не найден.";
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(comment) || comment.Trim().Length < 3)
+        {
+            error = "Комментарий слишком короткий.";
+            return;
+        }
+
+        Repo.AddComment(review.Id, name, comment);
+        name = "";
+        comment = "";
+        ok = true;
+    }
+}
+
+@if (review is null)
+{
+    <h1>Отзыв не найден</h1>
+    <p>Проверьте ссылку.</p>
+    return;
+}
+
+<article class="review-detail">
+    <div class="review-head">
+        <div class="score">
+            <span class="pill">@review.Score</span>
+        </div>
+        <div class="title">
+            <div class="company">@review.Company</div>
+            <div class="meta">@review.CreatedAt.LocalDateTime.ToString("dd MMMM yyyy, HH:mm:ss", new System.Globalization.CultureInfo("ru-RU"))</div>
+        </div>
+    </div>
+
+    <div class="text">@review.Text</div>
+
+    <div class="byline">
+        Автор: <b>@review.Author</b>
+        <span class="dot">•</span>
+        Категория: <a href="/categories">@review.Category</a>
+        <span class="dot">•</span>
+        Город: <a href="/cities">@review.City</a>
+    </div>
+</article>
+
+<hr />
+
+@foreach (var c in review.Comments.OrderByDescending(x => x.CreatedAt))
+{
+    <div class="comment">
+        <div class="comment-head">— <b>@c.Author</b> | @c.CreatedAt.LocalDateTime.ToString("dd MMMM yyyy, HH:mm:ss", new System.Globalization.CultureInfo("ru-RU"))</div>
+        <div class="comment-body">@c.Text</div>
+    </div>
+}
+
+<h2 class="h2">Добавить комментарий</h2>
+
+@if (!string.IsNullOrWhiteSpace(error))
+{
+    <div class="alert error">@error</div>
+}
+@if (ok)
+{
+    <div class="alert ok">Комментарий добавлен (в демо хранится в памяти).</div>
+}
+
+<div class="form">
+    <label>Имя:</label>
+    <InputText class="input" @bind-Value="name" />
+
+    <label>Комментарий:</label>
+    <InputTextArea class="input" @bind-Value="comment" rows="4" />
+
+    <label class="muted">Проверочный код:</label>
+    <div class="captcha muted">(в демо отключено)</div>
+
+    <button class="btn" @onclick="AddComment">Отправить</button>
+</div>

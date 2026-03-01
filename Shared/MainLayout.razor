@@ -1,0 +1,49 @@
+@inherits LayoutComponentBase
+
+<div class="site">
+    <header class="topbar">
+        <div class="container">
+            <div class="topline">
+                <div class="brand">
+                    <img class="logo" src="/img/logo.svg" alt="RabotaGovno.RU" />
+                    <a class="brand-title" href="/">RabotaGovno.RU</a>
+                </div>
+                <div class="slogan">Твоя работа Г#вно? Расскажи всем!</div>
+            </div>
+
+            <div class="navrow">
+                <div class="nav-block">
+                    <span class="nav-label">Отзывы:</span>
+                    <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">новые</NavLink>
+                    <NavLink class="nav-link" href="/best">лучшие</NavLink>
+                    <NavLink class="nav-link" href="/categories">по категориям</NavLink>
+                    <NavLink class="nav-link" href="/cities">по городам</NavLink>
+                </div>
+            </div>
+
+            <div class="addrow">
+                <NavLink class="add-btn" href="/add">ДОБАВИТЬ ОТЗЫВ</NavLink>
+            </div>
+
+            <div class="navrow">
+                <div class="nav-block">
+                    <span class="nav-label">Прочее:</span>
+                    <NavLink class="nav-link" href="/news">Новости</NavLink>
+                    <NavLink class="nav-link" href="/about">О проекте</NavLink>
+                    <NavLink class="nav-link" href="/contacts">Контакты</NavLink>
+                    <NavLink class="nav-link" href="/employers">Работодателям</NavLink>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container main">
+        @Body
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div>Отзывы о работодателях © 2012–@DateTime.Now.Year</div>
+        </div>
+    </footer>
+</div>

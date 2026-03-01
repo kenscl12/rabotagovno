@@ -1,0 +1,21 @@
+@page "/{Slug}"
+
+@code {
+    [Parameter] public string Slug { get; set; } = "";
+
+    private static readonly HashSet<string> Known = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "news","about","contacts","employers","categories","cities","legal","idea"
+    };
+}
+
+@if (!Known.Contains(Slug))
+{
+    <h1>Страница не найдена</h1>
+    <p>Такой страницы нет.</p>
+}
+else
+{
+    <h1>@Slug</h1>
+    <p class="muted">Заглушка. Добавьте контент по необходимости.</p>
+}

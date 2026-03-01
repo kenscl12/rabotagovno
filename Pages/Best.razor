@@ -1,0 +1,33 @@
+@page "/best"
+@inject ReviewRepository Repo
+
+<div class="counts">
+    Лучшие отзывы
+</div>
+
+<div class="reviewlist">
+    @foreach (var r in Repo.GetBest(20))
+    {
+        <div class="reviewitem">
+            <div class="reviewtop">
+                <div class="scoreline">
+                    <span class="scoreplus">+@r.Score</span> –
+                    <a class="companylink" href="/main/view/all/@r.Id">@r.Company</a>
+                </div>
+                <div class="dateline">@r.CreatedAt.LocalDateTime.ToString("dd MMMM yyyy, HH:mm:ss", new System.Globalization.CultureInfo("ru-RU"))</div>
+            </div>
+
+            <div class="reviewtext">
+                @r.Text <a class="morelink" href="/main/view/all/@r.Id">…читать дальше</a>
+            </div>
+
+            <div class="metarow">
+                Автор: <span class="metaval">@r.Author</span>
+                <span class="sep">|</span>
+                Категория: <a href="/categories">@r.Category</a>
+                <span class="sep">|</span>
+                Город: <a href="/cities">@r.City</a>
+            </div>
+        </div>
+    }
+</div>
