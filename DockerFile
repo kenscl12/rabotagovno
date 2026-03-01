@@ -7,10 +7,8 @@ RUN dotnet publish -c Release -o RabotaGovnoClone
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
+# Копируем содержимое папки RabotaGovnoClone прямо в /app
 COPY --from=build /app/RabotaGovnoClone ./
-
-# Указываем порт, который будет слушать приложение
 ENV ASPNETCORE_URLS=http://+:5090
 EXPOSE 5090
-
 ENTRYPOINT ["dotnet", "RabotaGovnoClone.dll"]
