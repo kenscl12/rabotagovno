@@ -5,7 +5,7 @@ meta:
     version: 8.0
 build:
   image: mcr.microsoft.com/dotnet/sdk:8.0
-  commands:
+  script:
     - dotnet restore
     - dotnet publish -c Release -o ./publish
 run:
