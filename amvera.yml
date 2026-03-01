@@ -9,4 +9,4 @@ run:
   image: mcr.microsoft.com/dotnet/sdk:8.0
   buildFileName: bin/RabotaGovnoClone
   persistenceMount: /data
-  containerPort: 80
+  containerPort: 5090
