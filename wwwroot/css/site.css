@@ -32,11 +32,12 @@ a:visited { color: #551A8B; }
 .nav-block { display:flex; flex-wrap:wrap; align-items:baseline; gap: 8px; }
 .nav-label { color:#000; }
 
-.addrow { margin: 14px 0 10px; }
+.addrow { margin: 14px 0 10px; display: flex; justify-content: center; }
 .add-btn {
   display:block;
   width: 520px;
   max-width: 100%;
+  margin: 0 auto;
   text-align:center;
   padding: 9px 12px;
   border-radius: 4px;
@@ -97,6 +98,7 @@ a:visited { color: #551A8B; }
 .morelink { white-space:nowrap; }
 
 .metarow { color:#000; }
+.metarow-city { display: block; margin-top: 4px; }
 .metaval { font-weight:700; }
 .sep { padding: 0 6px; color:#000; }
 
@@ -213,6 +215,11 @@ a:visited { color: #551A8B; }
 
 .review-detail .byline {
   color: #000;
+}
+
+.byline-city {
+  display: block;
+  margin-top: 4px;
 }
 
 .dot {
